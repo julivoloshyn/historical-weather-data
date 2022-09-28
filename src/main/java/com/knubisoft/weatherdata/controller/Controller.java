@@ -1,45 +1,87 @@
 package com.knubisoft.weatherdata.controller;
 
-import lombok.SneakyThrows;
+import com.knubisoft.weatherdata.api.ApiConnection;
+import com.knubisoft.weatherdata.chartbuilder.TemperatureChangesChart;
+import com.knubisoft.weatherdata.jsonparser.Parser;
+import com.knubisoft.weatherdata.requestdto.HistoricDataParams;
+import com.knubisoft.weatherdata.weatherdto.FullWeatherData;
+import com.knubisoft.weatherdata.weatherdto.SimpleWeatherData;
+import com.knubisoft.weatherdata.weatherdto.TemperatureChangesData;
+
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.FileWriter;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.util.List;
 
 @RestController
 public class Controller {
 
-    @SneakyThrows
-    @GetMapping("/forecast")
-    public void forecast() {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://visual-crossing-weather.p.rapidapi.com/forecast?aggregateHours=24&location=Washington%2CDC%2CUSA&contentType=json&unitGroup=us&shortColumnNames=0"))
-                .header("X-RapidAPI-Key", "e383515f77mshb40c1345863fa6ep18c8fdjsndf718dcb823e")
-                .header("X-RapidAPI-Host", "visual-crossing-weather.p.rapidapi.com")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+    TemperatureChangesChart pngChart = new TemperatureChangesChart();
+    ApiConnection apiConnection = new ApiConnection();
 
-        FileWriter file = new FileWriter("forecast.json");
-        file.write(response.body());
-        file.close();
+    @GetMapping("/temperature-changes")
+    public void historicTemperatureChanges(
+            @RequestBody HistoricDataParams historicDataParams) {
+
+        String responseBody = apiConnection.historicData(
+                "https://visual-crossing-weather.p.rapidapi.com/history?" +
+                        "startDateTime=" + historicDataParams.getStartDateTime() +
+                        "&aggregateHours=" + historicDataParams.getAggregateHours() +
+                        "&location=" + historicDataParams.getLocation() +
+                        "&endDateTime=" + historicDataParams.getEndDateTime() +
+                        "&unitGroup=" + historicDataParams.getUnitGroup() +
+                        "&contentType=json"
+        );
+
+        List<TemperatureChangesData> weatherList = new Parser().readAll(
+                historicDataParams.getLocation(), responseBody, TemperatureChangesData.class);
+
+        pngChart.createChart(weatherList,
+                historicDataParams.getUnitGroup(),
+                historicDataParams.getStartDateTime(),
+                historicDataParams.getEndDateTime());
     }
 
-    @SneakyThrows
-    @GetMapping("/history")
-    public void historicData() {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://visual-crossing-weather.p.rapidapi.com/history?startDateTime=2019-01-01T00%3A00%3A00&aggregateHours=24&location=Washington%2CDC%2CUSA&endDateTime=2019-01-03T00%3A00%3A00&unitGroup=us&dayStartTime=8%3A00%3A00&contentType=csv&dayEndTime=17%3A00%3A00&shortColumnNames=0"))
-                .header("X-RapidAPI-Key", "e383515f77mshb40c1345863fa6ep18c8fdjsndf718dcb823e")
-                .header("X-RapidAPI-Host", "visual-crossing-weather.p.rapidapi.com")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
+    @GetMapping("/historic-simple-data")
+    public ResponseEntity<List<SimpleWeatherData>> historicSimpleData(
+            @RequestBody HistoricDataParams historicDataParams) {
+
+        String responseBody = apiConnection.historicData(
+                "https://visual-crossing-weather.p.rapidapi.com/history?" +
+                "startDateTime=" + historicDataParams.getStartDateTime() +
+                "&aggregateHours=" + historicDataParams.getAggregateHours() +
+                "&location=" + historicDataParams.getLocation() +
+                "&endDateTime=" + historicDataParams.getEndDateTime() +
+                "&unitGroup=" + historicDataParams.getUnitGroup() +
+                "&contentType=json"
+        );
+
+        List<SimpleWeatherData> weatherList = new Parser().readAll(
+                historicDataParams.getLocation(), responseBody, SimpleWeatherData.class);
+
+        return ResponseEntity.ok(weatherList);
     }
 
+    @GetMapping("/historic-full-data")
+    public ResponseEntity<List<FullWeatherData>> historicFullData(
+            @RequestBody HistoricDataParams historicDataParams) {
+
+        String responseBody = apiConnection.historicData(
+                "https://visual-crossing-weather.p.rapidapi.com/history?" +
+                        "startDateTime=" + historicDataParams.getStartDateTime() +
+                        "&aggregateHours=" + historicDataParams.getAggregateHours() +
+                        "&location=" + historicDataParams.getLocation() +
+                        "&endDateTime=" + historicDataParams.getEndDateTime() +
+                        "&unitGroup=" + historicDataParams.getUnitGroup() +
+                        "&contentType=json"
+        );
+
+        List<FullWeatherData> weatherList = new Parser().readAll(
+                historicDataParams.getLocation(), responseBody, FullWeatherData.class);
+
+        return ResponseEntity.ok(weatherList);
+    }
 }
