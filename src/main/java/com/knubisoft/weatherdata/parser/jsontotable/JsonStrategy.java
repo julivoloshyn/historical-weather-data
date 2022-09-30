@@ -1,4 +1,4 @@
-package com.knubisoft.weatherdata.jsonparser;
+package com.knubisoft.weatherdata.parser.jsontotable;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class JsonParsingStrategy {
+public class JsonStrategy {
 
     @SneakyThrows
     public Table parseToTable(String content, String location) {
@@ -43,4 +43,5 @@ public class JsonParsingStrategy {
         }
         return rowMap;
     }
+
 }

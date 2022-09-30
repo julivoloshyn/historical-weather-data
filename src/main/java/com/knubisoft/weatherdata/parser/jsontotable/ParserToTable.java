@@ -1,4 +1,4 @@
-package com.knubisoft.weatherdata.jsonparser;
+package com.knubisoft.weatherdata.parser.jsontotable;
 
 import lombok.SneakyThrows;
 
@@ -9,17 +9,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-public class Parser {
+public class ParserToTable {
 
-    JsonParsingStrategy jsonParsingStrategy = new JsonParsingStrategy();
-
-    public <T> List<T> readAll(String location, String inputSource, Class<T> cls) {
-        Table table = jsonParsingStrategy.parseToTable(inputSource, location);
+    public <T> List<T> readAllValues(String location, String inputSource, Class<T> cls) {
+        Table table = new JsonStrategy().parseToTable(inputSource, location);
 
         return convertTableToList(table, cls);
     }
 
-    private <T> List<T> convertTableToList(Table table, Class<T> cls) {
+    private   <T> List<T> convertTableToList(Table table, Class<T> cls) {
         List<T> resultList = new ArrayList<>();
 
         for (int i = 0; i < table.size(); i++) {

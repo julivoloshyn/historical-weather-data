@@ -1,4 +1,4 @@
-package com.knubisoft.weatherdata.jsonparser;
+package com.knubisoft.weatherdata.parser.jsontotable;
 
 import lombok.RequiredArgsConstructor;
 
