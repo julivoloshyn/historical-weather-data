@@ -9,14 +9,14 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class SimpleWeatherData {
-    private double temp;
-    private double maxt;
-    private double visibility;
-    private double wspd;
-    private double mint;
+public class WeatherNamings {
+    private String maxt;
+    private String mint;
+    private String visibility;
+    private String wspd;
+    private String solarradiation;
     private String weathertype;
-    private double humidity;
-    private double presipсover;
+    private String humidity;
+    private String presipсover;
     private String conditions;
 }
