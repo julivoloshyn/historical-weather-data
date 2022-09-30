@@ -1,4 +1,4 @@
-package com.knubisoft.weatherdata.chartbuilder.dataprocessor;
+package com.knubisoft.weatherdata.dataprocessor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
