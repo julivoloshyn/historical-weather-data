@@ -1,0 +1,12 @@
+{
+  "maxt": "degC",
+  "mint": "degC",
+  "wspd": "kph",
+  "visibility": "km",
+  "solarradiation": "W/m^2",
+  "weathertype": "",
+  "humidity": "%",
+  "presipсover": "%",
+  "conditions": ""
+}
+

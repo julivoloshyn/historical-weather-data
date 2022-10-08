@@ -1,0 +1,13 @@
+{
+    "maxt": "Maximum temperature",
+    "mint": "Minimum temperature",
+    "wspd": "Wind speed",
+    "visibility": "Visibility",
+    "solarradiation": "Solar radiation",
+    "weathertype": "Weather type",
+    "humidity": "Humidity",
+    "presipсover": "Precipitation cover",
+    "conditions": "Conditions"
+
+}
+
