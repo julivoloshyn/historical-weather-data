@@ -1,4 +1,4 @@
-package com.knubisoft.weatherdata.weatherdto;
+package com.knubisoft.weatherdata.table.tabledto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
