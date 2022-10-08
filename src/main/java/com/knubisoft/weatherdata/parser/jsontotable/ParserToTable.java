@@ -11,12 +11,28 @@ import java.util.function.Function;
 
 public class ParserToTable {
 
+    /**
+     * Fills model list.
+     *
+     * @param inputSource Connection.
+     * @param cls Unknown class.
+     * @param <T> Unknown type.
+     * @return Model list.
+     */
     public <T> List<T> readAllValues(String location, String inputSource, Class<T> cls) {
         Table table = new JsonStrategy().parseToTable(inputSource, location);
 
         return convertTableToList(table, cls);
     }
 
+    /**
+     * Fills values into model fields.
+     *
+     * @param table Table - Map(key, value).
+     * @param cls Unknown class.
+     * @param <T> Unknown type.
+     * @return Model list.
+     */
     private   <T> List<T> convertTableToList(Table table, Class<T> cls) {
         List<T> resultList = new ArrayList<>();
 
@@ -28,6 +44,14 @@ public class ParserToTable {
         return resultList;
     }
 
+    /**
+     * Sets up values into model class.
+     *
+     * @param row Key, value.
+     * @param cls Unknown class.
+     * @param <T> Unknown type.
+     * @return Cls instance.
+     */
     @SneakyThrows
     private <T> T reflectTableRowToClass(Map<String, String> row, Class<T> cls) {
         T toType = cls.getDeclaredConstructor().newInstance();
@@ -42,6 +66,13 @@ public class ParserToTable {
         return toType;
     }
 
+    /**
+     * Fills values into fields.
+     *
+     * @param field From unknown class.
+     * @param value To fill field.
+     * @return Required object.
+     */
     private Object transformValueToFieldType(Field field, String value) {
         Map<Class<?>, Function<String, Object>> typeToFunction = new LinkedHashMap<>();
         typeToFunction.put(String.class, s -> s);

@@ -10,6 +10,12 @@ import java.util.Map;
 
 public class JsonStrategy {
 
+    /**
+     * Builds new Table.
+     *
+     * @param content File.
+     * @return Table - Map(key, value).
+     */
     @SneakyThrows
     public Table parseToTable(String content, String location) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -23,6 +29,12 @@ public class JsonStrategy {
         return new Table(mapFromTreeNode);
     }
 
+    /**
+     * Builds filled map with values from json file.
+     *
+     * @param treeNode Array json node.
+     * @return Map (key, Map(key, value)).
+     */
     private Map<Integer, Map<String, String>> buildTable(JsonNode treeNode) {
         Map<Integer, Map<String, String>> map = new LinkedHashMap<>();
         int index = 0;
@@ -34,6 +46,12 @@ public class JsonStrategy {
         return map;
     }
 
+    /**
+     * Puts each row from json file to a map.
+     *
+     * @param node Row in json file.
+     * @return Map (key, value).
+     */
     private Map<String, String> buildRow(JsonNode node) {
         Map<String, String> rowMap = new LinkedHashMap<>();
         Iterator<Map.Entry<String, JsonNode>> iterator = node.fields();

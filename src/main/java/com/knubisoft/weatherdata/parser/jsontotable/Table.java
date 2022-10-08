@@ -13,6 +13,12 @@ public class Table {
         return table.size();
     }
 
+    /**
+     * Gets row by index.
+     *
+     * @param row Some row from table.
+     * @return Map(key, value).
+     */
     Map<String, String> getTableRowByIndex(int row) {
         Map<String, String> tableRow = table.get(row);
         return tableRow == null ? null : new LinkedHashMap<>(tableRow);
