@@ -41,7 +41,8 @@ Project created with:
 
 * File:
 
-![img.png](src/main/resources/forreadme/img.png)
+
+![img.png](master/src/main/resources/forreadme/img.png))
 
 ### Chart
 
