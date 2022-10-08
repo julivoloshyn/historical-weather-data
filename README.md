@@ -41,8 +41,7 @@ Project created with:
 
 * File:
 
-
-![img.png](master/src/main/resources/forreadme/img.png))
+![img.png](tableExample.png)
 
 ### Chart
 
@@ -51,7 +50,7 @@ Project created with:
 `http://localhost:8080/chart/humidity-changes`
 
 You can also use this requests for temperature and precipitation changes charts:\
-`http://localhost:8080/chart/temperature-changes`
+`http://localhost:8080/chart/temperature-changes` \
 `http://localhost:8080/chart/precipitation-changes`
 
 * Body:
@@ -78,7 +77,7 @@ You can also use this requests for temperature and precipitation changes charts:
 
 * File:
 
-![img.png](src/main/resources/image1/img.png)
+![img.png](chartExample.png)
 
 ## Error cases
 
