@@ -10,10 +10,15 @@ import java.nio.charset.StandardCharsets;
 
 @Getter
 @RequiredArgsConstructor
-public class FileReader {
+public class FileReading {
 
     private final File source;
 
+    /**
+     * Reads file to string.
+     *
+     * @return String.
+     */
     @SneakyThrows
     public String getContent() {
         return FileUtils.readFileToString(source, StandardCharsets.UTF_8);
