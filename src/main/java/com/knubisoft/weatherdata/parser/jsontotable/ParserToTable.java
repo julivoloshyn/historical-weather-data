@@ -74,6 +74,9 @@ public class ParserToTable {
      * @return Required object.
      */
     private Object transformValueToFieldType(Field field, String value) {
+        if(value.equals("null")){
+            value = "0";
+        }
         Map<Class<?>, Function<String, Object>> typeToFunction = new LinkedHashMap<>();
         typeToFunction.put(String.class, s -> s);
         typeToFunction.put(double.class, Double::parseDouble);

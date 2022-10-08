@@ -1,6 +1,6 @@
 # HistoricalWeatherData
 
-Historical weather data app is created to give a user weather information in table or chart format. A user enters the location and period and gets data in PDF file.
+Historical weather data app is created to give a user weather information in table or chart format. A user enters the location and period and gets data in PDF file. Values are given in the metric system.
 
 ## Technologies
 
