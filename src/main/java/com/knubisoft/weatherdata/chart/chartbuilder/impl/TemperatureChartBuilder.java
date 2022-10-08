@@ -1,5 +1,6 @@
-package com.knubisoft.weatherdata.chart.chartbuilder;
+package com.knubisoft.weatherdata.chart.chartbuilder.impl;
 
+import com.knubisoft.weatherdata.chart.chartbuilder.ChartBuilder;
 import com.knubisoft.weatherdata.chart.chartdto.TemperatureChangesData;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -13,21 +14,23 @@ import java.awt.Color;
 import java.time.LocalDate;
 import java.util.List;
 
-public class TemperatureChartBuilder {
+/**
+ * Building temperature changes chart for specified period.
+ */
+public class TemperatureChartBuilder implements ChartBuilder {
 
+    /**
+     * Creates a design of chart and returns result.
+     *
+     * @param data List of weather values.
+     * @param period List of dates between period.
+     * @param <T> Unknown type.
+     * @return Result.
+     */
     public <T> Plot designChart(List<T> data,
                                 List<LocalDate> period) {
 
-        JFreeChart chart = ChartFactory.createLineChart(
-                "Temperature changes for the specified period",
-                "Date",
-                "Temperature (degC)",
-                buildChart((List<TemperatureChangesData>) data, period),
-                PlotOrientation.VERTICAL,
-                true,
-                true,
-                false
-        );
+        JFreeChart chart = createLineChart((List<TemperatureChangesData>) data, period);
 
         LineAndShapeRenderer renderer = new LineAndShapeRenderer();
         renderer.setSeriesPaint(0, Color.RED);
@@ -41,7 +44,33 @@ public class TemperatureChartBuilder {
         return plot;
     }
 
+    /**
+     * Builds a specific area chart.
+     *
+     * @param data List of weather values.
+     * @param period List of dates between period.
+     * @return Chart.
+     */
+    private JFreeChart createLineChart(List<TemperatureChangesData> data, List<LocalDate> period) {
+        return ChartFactory.createLineChart(
+                "Temperature changes for the specified period",
+                "Date",
+                "Temperature (degC)",
+                buildChart(data, period),
+                PlotOrientation.VERTICAL,
+                true,
+                true,
+                false
+        );
+    }
 
+    /**
+     * Builds chart line.
+     *
+     * @param data List of weather values.
+     * @param period List of dates between period.
+     * @return Dataset.
+     */
     private DefaultCategoryDataset buildChart(List<TemperatureChangesData> data,
                                               List<LocalDate> period) {
         String maxt = "Maximum temperature";
