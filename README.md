@@ -41,9 +41,8 @@ Project created with:
 
 * File:
 
-https://github.com/julivoloshyn/historical-weather-data/blob/master/src/main/resources/forreadme/img.png
 
-![img.png]([src/main/resources/forreadme/img.png](https://github.com/julivoloshyn/historical-weather-data/blob/master/src/main/resources/forreadme/img.png))
+![img.png](master/src/main/resources/forreadme/img.png))
 
 ### Chart
 
