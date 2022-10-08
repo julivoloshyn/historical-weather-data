@@ -11,13 +11,11 @@ import com.knubisoft.weatherdata.requestdto.HistoricDataParams;
 import com.knubisoft.weatherdata.chart.chartdto.HumidityChangesData;
 import com.knubisoft.weatherdata.chart.chartdto.PrecipitationChangesData;
 import com.knubisoft.weatherdata.chart.chartdto.TemperatureChangesData;
+import io.swagger.annotations.*;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -39,8 +37,15 @@ public class ChartsController {
      * @param historicDataParams (startDateTime, location, endDateTime).
      * @return List of info.
      */
+    @ApiOperation(value = "Create a temperature chart by entered parameters", notes = "Returns detailed location and path name of PDF document.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully created"),
+            @ApiResponse(code = 404, message = "Incorrect parameters. Weather API cannot processes ones."),
+            @ApiResponse(code = 500, message = "An unexpected error has occurred.")
+
+    })
     @SneakyThrows
-    @GetMapping("/temperature-changes")
+    @PostMapping("/temperature-changes")
     public ResponseEntity<List<Object>> buildChartOfHistoricTemperatureChanges(
             @Valid @RequestBody HistoricDataParams historicDataParams) {
 
@@ -79,8 +84,15 @@ public class ChartsController {
      * @param historicDataParams (startDateTime, location, endDateTime).
      * @return List of info.
      */
+    @ApiOperation(value = "Create a precipitation chart by entered parameters", notes = "Returns detailed location and path name of PDF document.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully created"),
+            @ApiResponse(code = 404, message = "Incorrect parameters. Weather API cannot processes ones."),
+            @ApiResponse(code = 500, message = "An unexpected error has occurred.")
+
+    })
     @SneakyThrows
-    @GetMapping("/precipitation-changes")
+    @PostMapping("/precipitation-changes")
     public ResponseEntity<List<Object>> buildChartOfHistoricPrecipitationChanges(
             @Valid @RequestBody HistoricDataParams historicDataParams) {
 
@@ -119,8 +131,15 @@ public class ChartsController {
      * @param historicDataParams (startDateTime, location, endDateTime).
      * @return List of info.
      */
+    @ApiOperation(value = "Create a humidity chart by entered parameters", notes = "Returns detailed location and path name of PDF document.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully created"),
+            @ApiResponse(code = 404, message = "Incorrect parameters. Weather API cannot processes ones."),
+            @ApiResponse(code = 500, message = "An unexpected error has occurred.")
+
+    })
     @SneakyThrows
-    @GetMapping("/humidity-changes")
+    @PostMapping("/humidity-changes")
     public ResponseEntity<Object> buildChartOfHistoricHumidityChanges(
             @Valid @RequestBody HistoricDataParams historicDataParams) {
 
